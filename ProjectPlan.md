@@ -21,7 +21,7 @@ Our end goal is to produce a **reproducible workflow** that automatically downlo
 | Member | Major | Roles & Responsibilities |
 |---------|--------|--------------------------|
 | **Will Lande** | Econometrics & Quantitative Economics | Lead data integration and econometric modeling. Implement event-study regressions, statistical tests, and visualizations. Maintain workflow automation scripts and documentation. |
-| **[Partner Name]** | Accounting | Lead text-mining and disclosure analysis. Collect and preprocess SEC filings, perform keyword and sentiment extraction, evaluate ethical and reporting implications, and help interpret results in an accounting context. |
+| **[Emil Tomic]** | Accounting | Lead text-mining and disclosure analysis. Collect and preprocess SEC filings, perform keyword and sentiment extraction, evaluate ethical and reporting implications, and help interpret results in an accounting context. |
 
 Both members will contribute equally to Git commits, markdown documentation, and report writing.
 
@@ -50,13 +50,13 @@ Filings will be matched to stock tickers and filing dates; abnormal returns will
 ## Timeline & Task Assignments
 | Week | Dates (approx.) | Tasks | Responsible Member(s) |
 |------|-----------------|-------|------------------------|
-| 1 | Oct 13 – Oct 20 | Finalize research design; test SEC and Yahoo APIs; create repo structure and data schema. | Both |
-| 2 | Oct 21 – Oct 27 | Implement SEC filing download and parsing scripts; begin keyword extraction. | Partner |
-| 3 | Oct 28 – Nov 3 | Acquire stock data; merge datasets by ticker/date; initial cleaning. | Will |
-| 4 | Nov 4 – Nov 11 | Conduct preliminary analysis for Interim Status Report (event-study prototype, plots). | Both |
-| 5 | Nov 12 – Nov 24 | Expand sample; improve NLP (sentiment, context); refine econometric models. | Both |
-| 6 | Nov 25 – Dec 5 | Automate workflow with Snakemake or “Run All” script; finalize visualizations; prepare README report. | Will |
-| 7 | Dec 6 – Dec 10 | Quality-check reproducibility; upload final data package to Box; submit final release. | Both |
+| 1 | Oct 13 – Oct 20 | Finalize research design; test SEC and Yahoo APIs; create repo structure and data schema.
+| 2 | Oct 21 – Oct 27 | Implement SEC filing download and parsing scripts; begin keyword extraction. 
+| 3 | Oct 28 – Nov 3 | Acquire stock data; merge datasets by ticker/date; initial cleaning. 
+| 4 | Nov 4 – Nov 11 | Conduct preliminary analysis for Interim Status Report (event-study prototype, plots). 
+| 5 | Nov 12 – Nov 24 | Expand sample; improve NLP (sentiment, context); refine econometric models. 
+| 6 | Nov 25 – Dec 5 | Automate workflow with Snakemake or “Run All” script; finalize visualizations; prepare README report. 
+| 7 | Dec 6 – Dec 10 | Quality-check reproducibility; upload final data package to Box; submit final release.
 
 ---
 
