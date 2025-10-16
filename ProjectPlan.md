@@ -53,7 +53,7 @@ Cleaned tables will be stored in a local PostgreSQL database or structured `/dat
 | Week | Dates (approx.) | Tasks | Responsible Member(s) |
 |------|-----------------|--------|------------------------|
 | 1 | Oct 13 – Oct 20 | Finalize project scope, set up GitHub repo, obtain API keys, test endpoints. | Both |
-| 2 | Oct 21 – Oct 27 | Write data-acquisition scripts (cfbd + sportsreference); create schema README. | Partner |
+| 2 | Oct 21 – Oct 27 | Write data-acquisition scripts (cfbd + sportsreference); create schema README. | Emil |
 | 3 | Oct 28 – Nov 3 | Clean and merge datasets; feature engineering (win margin, strength index, recent form). | Will |
 | 4 | Nov 4 – Nov 11 | Prototype ML models (Logistic Regression, Random Forest); draft Status Report. | Both |
 | 5 | Nov 12 – Nov 24 | Model tuning (Grid Search CV); add visualizations (feature importance, confusion matrix). | Will |
