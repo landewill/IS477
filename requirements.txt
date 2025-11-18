@@ -13,9 +13,8 @@
 # Fill in the sections below with packages and versions.
 
 # ---- Core dependencies ----------------------------------------------------
-# e.g.
-# flask==2.2.3
-# requests==2.31.0
+# cfbd==5.13.2
+# sportsipy 
 
 # Add core runtime packages here (web framework, HTTP clients, etc.)
 
