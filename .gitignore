@@ -1,0 +1,31 @@
+# OS / Finder
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual envs
+.venv/
+venv/
+env/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Logs / temp
+logs/
+*.log
+tmp/
+temp/
+*.tmp
+
+# IDEs
+.vscode/
+.idea/
