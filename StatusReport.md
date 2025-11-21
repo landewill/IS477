@@ -156,7 +156,7 @@ We spent more time than planned on data integration and fuzzy matching, which de
 
 ### 5.1 Emil – Contribution Summary
 
-Write your reflection here.
+During this milestone, I was more focused on integrating data from the api college football website. This took a while for me to do as I only wanted data from the years 2002 to 2024. The reason for this was because the other dataset that Will was focused on integrating only had data from 2002 up to 2024. This means it would not make sense to have data from other years as our plan was to merge both datasets together based on the same games. Therefore, I was responsible for making the "API_CFBD.ipynb" notebook and the "cfbd_merged.csv" file. Furthermore, I also started the merge file called "Data_merge.ipynb" in order to merge both datasets together. I completed the code for it, however, it was not sufficient enough to our standards and as a result, Will ended up taking my code and perfecting it to do what I was trying to. In conclusion, my responsibilities/actions for this project so far has been to integrate the cfbd_merged.csv through the API_CFBD.ipynb notebook and start and create a solid base in order to merge the cfb_box-scores_2002-2024.csv and cfbd_merged.csv datasets for will so that our linear regression model has a merged dataset to be based off of.
 
 ### 5.2 Will – Contribution Summary
 
