@@ -1,0 +1,33 @@
+{
+  "logistic_regression": {
+    "test_accuracy": 0.7572936064556176,
+    "test_roc_auc": 0.8246770936366633,
+    "test_precision": 0.7828467153284672,
+    "test_recall": 0.8486646884272997,
+    "test_f1": 0.8144280968201234,
+    "best_params": {
+      "classifier__C": 0.01,
+      "classifier__penalty": "l2",
+      "classifier__solver": "lbfgs"
+    },
+    "home_advantage": {
+      "observed_win_rate": 0.6276615556521199,
+      "avg_predicted_prob": 0.6281418753172852,
+      "balanced_game_prob": 0.6904582765050642,
+      "home_advantage_pct_points": 19.045827650506418
+    }
+  },
+  "ridge_regression": {
+    "test_mae": 13.155654906117423,
+    "test_rmse": 16.580280016310027,
+    "test_r2": 0.43851382176803044,
+    "best_params": {
+      "regressor__alpha": 10
+    },
+    "home_advantage": {
+      "observed_margin": 7.37202805884909,
+      "avg_predicted_margin": 7.389107538604996,
+      "balanced_game_margin": 14.448183872940813
+    }
+  }
+}
