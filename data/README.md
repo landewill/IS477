@@ -32,61 +32,58 @@ This directory contains all data used in the home-field advantage analysis proje
 - Anyone can reproduce the full dataset by following the instructions below
 
 **This approach demonstrates:**
-- ✅ Ethical data use and licensing compliance
-- ✅ Proper citation and attribution practices
-- ✅ Reproducible research workflows
-- ✅ Data curation best practices for restricted sources
+- Ethical data use and licensing compliance
+- Proper citation and attribution practices
+- Reproducible research workflows
+- Data curation best practices for restricted sources
 
 ### For Course Graders/Instructors
 
 Since this is a course project, I can provide the complete dataset directly for academic evaluation purposes. **Three options:**
 
 1. **Pre-processed Dataset (Fastest - Recommended):**
-   - Contact: [your.email@university.edu]
+   - Contact: [emilt2@illinois.edu] OR [willl2@illinois.edu]
    - I will provide Google Drive/OneDrive link to `merged_games.csv`
    - Download and place in `data/cleaned/` directory
-   - **Time required: 2 minutes**
 
 2. **Run Reproducibility Pipeline (Tests Full Workflow):**
    - Follow "Reproducing the Full Dataset" instructions below
    - Requires free CFBD API registration
-   - **Time required: ~15 minutes**
 
 3. **Use Sample Data (Quick Testing):**
    - Sample data included in `data/samples/`
    - Sufficient for verifying code functionality
-   - **Time required: 0 minutes (already included)**
 
 ## Directory Structure
 
 ```
 data/
 ├── raw/                    # Original, unmodified source data
-│   ├── kaggle/            # ✅ INCLUDED: Kaggle datasets (redistributable)
-│   ├── cfbd/              # ❌ LOCAL ONLY: CFBD API data (not redistributable)
-│   ├── sportsref/         # ❌ LOCAL ONLY: Sports Reference data
+│   ├── kaggle/            # INCLUDED: Kaggle datasets (redistributable)
+│   ├── cfbd/              # LOCAL ONLY: CFBD API data (not redistributable)
+│   ├── sportsref/         # LOCAL ONLY: Sports Reference data
 │   └── .gitkeep           # Preserves empty directory structure
 │
 ├── cleaned/                # Processed and merged datasets
-│   ├── kaggle_*.csv       # ✅ INCLUDED: Cleaned Kaggle data
-│   ├── cfbd_*.csv         # ❌ LOCAL ONLY: Cleaned CFBD data
-│   ├── merged_games.csv   # ❌ LOCAL ONLY: Combined dataset (contains CFBD)
+│   ├── kaggle_*.csv       # INCLUDED: Cleaned Kaggle data
+│   ├── cfbd_*.csv         # LOCAL ONLY: Cleaned CFBD data
+│   ├── merged_games.csv   # LOCAL ONLY: Combined dataset (contains CFBD)
 │   └── .gitkeep           # Preserves directory structure
 │
 ├── model/                  # Model-ready feature matrices
-│   ├── merged_games_model_ready.csv  # ✅ MAY BE INCLUDED (derived features)
+│   ├── merged_games_model_ready.csv  # MAY BE INCLUDED (derived features)
 │   └── .gitkeep           # Preserves directory structure
 │
 ├── samples/                # Small test datasets
-│   ├── sample_merged_games.csv  # ✅ INCLUDED: 10-row synthetic data
+│   ├── sample_merged_games.csv  # INCLUDED: 10-row synthetic data
 │   └── README.md          # Documentation for sample data
 │
 └── README.md              # This file
 ```
 
 **Legend:**
-- ✅ **INCLUDED** = Committed to GitHub repository (public)
-- ❌ **LOCAL ONLY** = Generated locally, excluded from version control (`.gitignore`)
+- **INCLUDED** = Committed to GitHub repository (public)
+- **LOCAL ONLY** = Generated locally, excluded from version control (`.gitignore`)
 
 ## Reproducing the Full Dataset
 
@@ -100,13 +97,12 @@ data/
 2. **CFBD API Key (Free):**
    - Register at https://collegefootballdata.com/
    - Create account → Generate API key
-   - **Time: ~2 minutes**
 
 ### Steps to Reproduce
 
 1. **Clone this repository** (if you haven't already):
    ```bash
-   git clone https://github.com/[username]/IS477.git
+   git clone https://github.com/landewill/IS477.git
    cd IS477
    ```
 
@@ -144,17 +140,20 @@ data/
 
 This project combines data from three primary sources with different licensing terms:
 
-#### 1. **Kaggle - College Football Dataset** ✅ Redistributable
+#### 1. **Kaggle - College Football Dataset** Redistributable
 
-- **Source:** https://www.kaggle.com/datasets/[DATASET-ID]
+- **Source:** https://www.kaggle.com/datasets/cviaxmiwnptr/college-football-team-stats-2002-to-january-2024/data
 - **Retrieval Method:** Direct download (included in repository)
-- **Contains:** [Describe Kaggle dataset contents]
-- **Coverage:** NCAA FBS games, [years]
-- **License:** [Check specific Kaggle dataset - typically CC0, CC-BY, or Public Domain]
-- **Redistribution Status:** ✅ **ALLOWED** - Included in this repository
-- **Citation:** [Kaggle dataset citation]
+- **Contains:** Dataset includes every game that involves an FBS (Division I-A) NCAA football team
+- **Coverage:** NCAA FBS games, away teams, date, attendence, etc
+- **License:** CC0: Public Domain
+- **Redistribution Status:** **ALLOWED** - Included in this repository
+- **Citation:** 
+```
+Cviaxmiwnptr. (2025, January 24). College Football Game Stats: 2002 to January 2025. Kaggle. https://www.kaggle.com/datasets/cviaxmiwnptr/college-football-team-stats-2002-to-january-2024/data 
+```
 
-#### 2. **College Football Data API (CFBD)** ❌ NOT Redistributable
+#### 2. **College Football Data API (CFBD)** NOT Redistributable
 
 - **Source:** https://collegefootballdata.com/
 - **Retrieval Method:** REST API (requires free registration)
@@ -162,7 +161,7 @@ This project combines data from three primary sources with different licensing t
 - **Coverage:** NCAA FBS games, 2001-2024
 - **License/Terms:** https://collegefootballdata.com/exporting
 - **Key Restriction:** "Users may not redistribute CFBD data"
-- **Redistribution Status:** ❌ **PROHIBITED** - Users must fetch data themselves
+- **Redistribution Status:** **PROHIBITED** - Users must fetch data themselves
 - **Why This Restriction Exists:**
   - CFBD aggregates data from multiple sources
   - Maintains data quality and freshness through API
@@ -174,14 +173,14 @@ This project combines data from three primary sources with different licensing t
   Retrieved from https://collegefootballdata.com/
   ```
 
-#### 3. **Sports Reference (Supplementary)** ⚠️ Status Unclear
+#### 3. **Sports Reference (Supplementary)** Status Unclear
 
 - **Source:** https://www.sports-reference.com/cfb/
 - **Retrieval Method:** Web scraping (check robots.txt)
 - **Contains:** Game schedules, scores, attendance data
 - **Coverage:** NCAA FBS games (multiple seasons)
 - **License/Terms:** [Check terms of use before scraping]
-- **Redistribution Status:** ⚠️ **UNCERTAIN** - Excluded out of caution
+- **Redistribution Status:** **UNCERTAIN** - Excluded out of caution
 
 ### Data Processing Pipeline
 
@@ -252,9 +251,14 @@ For complete variable documentation, see the individual README files in each sub
 If using this curated dataset, please cite:
 
 **Data Sources:**
-1. College Football Data API: [CITATION TO BE COMPLETED]
-2. Sports Reference: [CITATION TO BE COMPLETED]
-
+1. College Football Data API: ```
+  College Football Data. (2024). College Football Data API. 
+  Retrieved from https://collegefootballdata.com/
+  ```
+2. Kaggle: 
+```
+Cviaxmiwnptr. (2025, January 24). College Football Game Stats: 2002 to January 2025. Kaggle. https://www.kaggle.com/datasets/cviaxmiwnptr/college-football-team-stats-2002-to-january-2024/data 
+```
 **This Project:**
 Lande, W., & Tomic, E. (2025). College Football Home-Field Advantage Analysis Dataset. GitHub. https://github.com/landewill/IS477
 
@@ -262,11 +266,9 @@ Lande, W., & Tomic, E. (2025). College Football Home-Field Advantage Analysis Da
 
 **Source Data:** See individual source licenses above.
 
-**Curated/Derived Data:** [TO BE DETERMINED - Consider CC-BY-4.0 or similar for derived datasets]
-
 **Code:** MIT License (see LICENSE file in repository root)
 
 ## Contact
 
 For questions about data curation, quality issues, or access:
-[Your contact information]
+[emilt2@illinois.edu] OR [willl2@illinois.edu]
