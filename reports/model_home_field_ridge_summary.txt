@@ -1,0 +1,17 @@
+
+HOME-FIELD ADVANTAGE - Ridge Regression Model
+
+Observed Data:
+  - Average home margin: +7.37 points
+
+Model Predictions:
+  - Average predicted home margin: +7.39 points
+  
+Balanced Game Analysis:
+  In a perfectly evenly-matched game, the model predicts:
+  
+  - Expected home margin: +14.45 points
+  
+INTERPRETATION:
+  When two equal teams play, the home team is expected 
+  to win by approximately 14.4 points.

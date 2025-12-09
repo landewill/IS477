@@ -1,0 +1,67 @@
+cff-version: 1.2.0
+message: "If you use this software or dataset, please cite it as below."
+type: software
+title: "College Football Home-Field Advantage Analysis"
+abstract: "A reproducible data analysis project quantifying home-field advantage in NCAA FBS college football using machine learning models. Developed as part of a database management, curation, and reproducibility course."
+authors:
+  - family-names: "Lande"
+    given-names: "William"
+    orcid: "https://orcid.org/0000-0002-3055-7198"
+  - family-names: "Tomic"
+    given-names: "Emil"
+repository-code: "https://github.com/landewill/IS477"
+url: "https://github.com/landewill/IS477"
+license: MIT
+version: 1.0.0
+date-released: 2025-12-08
+keywords:
+  - college football
+  - home-field advantage
+  - machine learning
+  - sports analytics
+  - data curation
+  - reproducibility
+  - scikit-learn
+  - ridge regression
+  - lasso regression
+references:
+  - type: software
+    title: "scikit-learn: Machine Learning in Python"
+    authors:
+      - family-names: "Pedregosa"
+        given-names: "F."
+      - name: "et al."
+    year: 2011
+    journal: "Journal of Machine Learning Research"
+    volume: 12
+    start: 2825
+    end: 2830
+  - type: software
+    title: "pandas: Powerful data structures for data analysis"
+    authors:
+      - family-names: "McKinney"
+        given-names: "Wes"
+    year: 2010
+    conference: "Proceedings of the 9th Python in Science Conference"
+    start: 51
+    end: 56
+  - type: software
+    title: "NumPy: Array programming with NumPy"
+    authors:
+      - family-names: "Harris"
+        given-names: "Charles R."
+      - name: "et al."
+    year: 2020
+    journal: "Nature"
+    volume: 585
+    start: 357
+    end: 362
+    doi: "10.1038/s41586-020-2649-2"
+  - type: data
+    title: "College Football Data API"
+    url: "https://collegefootballdata.com/"
+    notes: "Primary data source for game statistics, ELO ratings, and venue information"
+  - type: data
+    title: "Sports Reference - College Football"
+    url: "https://www.sports-reference.com/cfb/"
+    notes: "Secondary data source for game schedules and attendance"

@@ -29,3 +29,52 @@ temp/
 # IDEs
 .vscode/
 .idea/
+
+# Environment variables and secrets
+.env
+*.env
+!.env.example
+*.key
+*.pem
+credentials.json
+secrets.json
+
+# ============================================================================
+# DATA FILES - Licensing Restrictions
+# ============================================================================
+# The College Football Data API (CFBD) terms of service prohibit public
+# redistribution of their data. Therefore, CFBD-sourced data files are 
+# excluded from version control and must be fetched locally via the API.
+#
+# Kaggle data CAN be redistributed and IS included in this repository.
+# ============================================================================
+
+# CFBD API data - EXCLUDED (licensing restrictions)
+data/raw/cfbd/
+data/raw/*cfbd*.csv
+data/cleaned/cfbd_*.csv
+data/cleaned/*cfbd*.csv
+data/cleaned/merged_games.csv
+
+# Sports Reference data - EXCLUDED (check ToS)
+data/raw/sportsref/
+data/raw/*sportsref*.csv
+
+# Kaggle data - INCLUDED (these are negated to ensure they're tracked)
+!data/raw/kaggle/
+!data/raw/*kaggle*.csv
+!data/cleaned/kaggle_*.csv
+!data/cleaned/*kaggle*.csv
+
+# Model-ready data - MAY be included (derived features only)
+# Uncomment the line below if you decide NOT to include model-ready data:
+# data/model/*.csv
+
+# Keep directory structure (empty directories preserved with .gitkeep files)
+!data/raw/.gitkeep
+!data/cleaned/.gitkeep
+!data/model/.gitkeep
+
+# Sample/test data - INCLUDED (for testing workflows)
+!data/samples/
+!data/samples/*.csv

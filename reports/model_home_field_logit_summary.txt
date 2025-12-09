@@ -1,6 +1,5 @@
 
-HOME-FIELD ADVANTAGE - LOGISTIC MODEL
-============================================================
+HOME-FIELD ADVANTAGE - Logistic Model Analysis
 
 Observed Data:
   - Home win rate: 62.8%
@@ -9,7 +8,7 @@ Model Predictions:
   - Average predicted home win probability: 62.8%
   
 Balanced Game Analysis:
-  In a perfectly evenly-matched game (all team stats equal), 
+  In a perfectly evenly-matched game where all team stats are equal, 
   the model predicts:
   
   - Home team win probability: 69.0%
@@ -19,5 +18,5 @@ Balanced Game Analysis:
   
 INTERPRETATION:
   When two equally-skilled teams play, the home team wins 
-  approximately 69.0% of the time, indicating a 
+  approximately 69.0% of the time, showing a 
   significant home-field advantage in college football.

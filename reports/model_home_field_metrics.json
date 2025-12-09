@@ -24,10 +24,26 @@
     "best_params": {
       "regressor__alpha": 10
     },
+    "features_used": 83,
     "home_advantage": {
       "observed_margin": 7.37202805884909,
       "avg_predicted_margin": 7.389107538604996,
       "balanced_game_margin": 14.448183872940813
+    }
+  },
+  "lasso_regression": {
+    "test_mae": 13.155983034132896,
+    "test_rmse": 16.58092376701169,
+    "test_r2": 0.4384702200751911,
+    "best_params": {
+      "regressor__alpha": 0.001
+    },
+    "features_used": 76,
+    "features_total": 83,
+    "home_advantage": {
+      "observed_margin": 7.37202805884909,
+      "avg_predicted_margin": 7.388912792926544,
+      "balanced_game_margin": 16.801331039297338
     }
   }
 }
