@@ -9,27 +9,27 @@
 
 This project quantifies home-field advantage in NCAA Football Bowl Subdivision (FBS) college football using machine learning models trained on comprehensive game data from 2002-2024. The central research question investigates: **How much does playing at home influence game outcomes in college football when controlling for team strength and other factors?**
 
-Home-field advantage is a well-documented phenomenon in sports, but quantifying its precise magnitude requires careful statistical modeling to disentangle venue effects from differences in team quality. This project addresses that challenge by integrating two complementary datasets containing over 15,000 FBS games and training three machine learning models: Logistic Regression (for win probability), Ridge Regression, and LASSO Regression (for point margin prediction).
+Home field advantage is a phenomenon in sports, but quantifying its magnitude takes statistical modeling to seperate venue effects from differences in team quality. This project addresses that challenge by integrating two complementary datasets containing over 15,000 FBS games and training three machine learning models: Logistic Regression (for win probability), Ridge Regression, and LASSO Regression for point margin prediction.
 
-The motivation stems from both practical and academic interests. For sports analysts, coaches, and bettors, understanding home-field advantage provides actionable insights for game predictions and strategic planning. From a data science perspective, this project demonstrates end-to-end reproducible research practices including programmatic data acquisition, integration of heterogeneous sources, feature engineering with leakage prevention, model training with cross-validation, and transparent reporting of methods and results.
+The motivation stems from both practical and academic interests. For sports analysts, coaches, and bettors, understanding home-field advantage provides insights for game predictions. From a data science perspective, this project demonstrates end-to-end reproducible research practices.
 
-Our analysis pipeline begins by merging game-level data from the College Football Data (CFBD) API with box score statistics from Kaggle. The CFBD dataset provides game outcomes, venue information, team ELO ratings, and AP poll rankings, while the Kaggle dataset contributes detailed box scores including attendance, game times, and team identifiers. Merging these datasets required sophisticated fuzzy string matching to reconcile inconsistent team naming conventions across sources and careful datetime alignment to match games across datasets.
+Our analysis pipeline begins by merging game-level data from the College Football Data (CFBD) API with box score statistics from Kaggle. The CFBD dataset provides game outcomes, venue information, team ELO ratings, and AP poll rankings, while the Kaggle dataset contributes detailed box scores including attendance, game times, and team identifiers. Merging these datasets required fuzzy string matching to deal with inconsistent team naming across sources and datetime alignment to match games across datasets.
 
-After data integration, we engineered 83 features capturing team strength (ELO ratings, AP rankings, historical performance), game context (attendance, venue type, time of day), and matchup characteristics (ranking differential, strength of opponent). Critical to our approach was preventing data leakage by ensuring no future information contaminated training data. For example, season-level statistics were computed using only games prior to each focal game, and standardization was fit exclusively on training data.
+After data integration, we engineered 83 features capturing team strength (ELO ratings, AP rankings), game context (attendance, venue type), and matchup characteristics (ranking differential). It was important to prevent data leakage by ensuring no future information contaminated the training data.
 
 We trained three complementary models using scikit-learn with hyperparameter tuning via grid search cross-validation:
 
-1. **Logistic Regression**: Predicts binary home team win probability. This model achieved 75.7% test accuracy and 0.825 ROC-AUC, indicating strong predictive performance. For balanced games where team statistics are equal, the model estimates the home team wins 69.0% of the time, representing a 19 percentage point advantage over the expected 50% for neutral venues.
+1. **Logistic Regression**: Predicts binary home team win probability. This model achieved 75.7% test accuracy and 0.825 ROC-AUC, indicating strong predictive performance. For games where team statistics are equal, the model estimates the home team wins 69.0% of the time, representing a 19 percentage point advantage over the expected 50% for neutral venues.
 
-2. **Ridge Regression**: Predicts home team point margin using L2 regularization. This model achieved an R² of 0.439 and RMSE of 16.6 points on test data. For evenly-matched teams, it predicts the home team wins by 14.4 points on average.
+2. **Ridge Regression**: Predicts home team point margin using L2 regularization. This model achieved an R^2 of 0.439 and RMSE of 16.6 points on test data. For evenly matched teams, it predicts the home team wins by 14.4 points on average.
 
-3. **LASSO Regression**: Predicts point margin using L1 regularization for automatic feature selection. With R² of 0.438 and selecting 76 of 83 features, this model estimates a 16.8 point home advantage for balanced games while identifying the most predictive factors.
+3. **LASSO Regression**: Predicts point margin using L1 regularization for automatic feature selection. With R^2 of 0.438 and selecting 76 of 83 features, this model estimates a 16.8 point home advantage for balanced games while identifying the most predictive factors.
 
-Key findings reveal substantial and consistent home-field advantage across all models. The logistic model shows home teams win nearly 70% of evenly-matched contests, while regression models estimate home teams score 14-17 more points than equally-skilled away opponents. Feature importance analysis from LASSO identified ELO ratings, historical win percentages, and AP poll rankings as the strongest predictors, though the home/away indicator itself contributes significantly to prediction accuracy.
+Key findings reveal substantial and consistent home field advantage across all models. The logistic model shows home teams win nearly 70% of evenly-matched contests, while regression models estimate home teams score 14-17 more points than equal away opponents.
 
-Visualizations generated as part of this analysis include ROC curves demonstrating classifier discrimination ability, residual plots showing model fit quality, and feature importance charts revealing which variables drive predictions. These diagnostic outputs confirm model assumptions and provide interpretable insights into the factors influencing game outcomes.
+Visualizations generated as part of this analysis include ROC curves , residual plots showing model fit quality, and feature importance charts from the LASSO model. These diagnostic outputs confirm model assumptions and provide interpretable insights into the factors influencing game outcomes.
 
-This project represents a complete, reproducible data science workflow from acquisition through analysis. All code, documentation, trained models, and results are version-controlled and publicly available. The workflow is fully automated via the `run_all.py` script, which executes all steps from data loading through model training and evaluation in a single command. We provide comprehensive documentation enabling independent reproduction of our results, along with metadata conforming to DataCite and Schema.org standards.
+This project represents a complete, reproducible data science workflow from acquisition through analysis. The workflow is fully automated via the `run_all.py` script. We provide comprehensive documentation enabling independent reproduction of our results.
 
 Beyond academic rigor, this project demonstrates practical skills in data curation, integration, quality assessment, machine learning, and workflow automation. The findings contribute quantitative evidence to the sports analytics literature while the methodology provides a template for reproducible research in computational social science.
 
@@ -41,7 +41,7 @@ This project integrates two primary datasets covering NCAA FBS college football 
 
 **Source**: [https://collegefootballdata.com/](https://collegefootballdata.com/)
 
-**Description**: The CFBD API provides comprehensive college football data including game results, team statistics, venue information, ELO ratings, and AP poll rankings. Data was retrieved programmatically via REST API endpoints for games and venues across seasons 2002-2024.
+**Description**: The CFBD API provides comprehensive college football data including game results, team statistics, venue information, ELO ratings, and AP poll rankings. Data was retrieved via REST API endpoint s for games and venues across seasons 2002-2024.
 
 **Coverage**: 
 - Over 15,000 FBS games spanning 23 seasons
@@ -55,10 +55,9 @@ This project integrates two primary datasets covering NCAA FBS college football 
 **Retrieval Method**: API access requires free registration at collegefootballdata.com. Data was fetched using Python requests library with appropriate rate limiting (60 requests/minute) to comply with API terms.
 
 **Ethical and Legal Constraints**:
-- **Licensing**: CFBD Terms of Service explicitly prohibit redistribution of their data. Users must fetch data directly from the API.
+- **Licensing**: CFBD Terms of Service explicitly prohibit redistribution of their data. Users must fetch data directly from the API. Data is provided through the Box link in the release as well, and this is the prefered method for grading.
 - **Attribution**: CFBD requires citation in any publications or projects using their data.
-- **Commercial Use**: Free tier is for educational/personal use; commercial applications require separate licensing.
-- **Impact on This Project**: CFBD data files are excluded from version control via `.gitignore` and hosted separately on Box.com for academic evaluation purposes only. Complete reproduction requires obtaining a free API key and running the data acquisition scripts (see `notebooks/API_CFBD.ipynb`) or downloading from the provided Box.com link.
+- **Commercial Use**: Free tier is for educational/personal use.
 
 **Citation**:
 ```
@@ -90,9 +89,8 @@ Retrieved from https://collegefootballdata.com/
 
 **Ethical and Legal Constraints**:
 - **License**: CC0: Public Domain - no restrictions on use or redistribution
-- **Attribution**: While not legally required under CC0, we cite the dataset creator as best practice
+- **Attribution**: We cite the dataset creator as best practice
 - **Privacy**: Contains only aggregated game-level data, no personal information
-- **Impact on This Project**: This dataset can be freely redistributed and is included in our Box.com data package. No ethical concerns identified.
 
 **Citation**:
 ```
@@ -102,15 +100,15 @@ Kaggle. https://www.kaggle.com/datasets/cviaxmiwnptr/college-football-team-stats
 
 **Data Quality Notes**:
 - Includes games beyond FBS level, requiring filtering
-- Team naming inconsistencies (e.g., "Cal Poly" vs "Cal Poly SLO")
+- Team naming inconsistencies compared to CFBD dataset
 - Some missing attendance values for smaller games
-- Time zone standardization required (all times provided in Eastern Time)
+- Time zone standardization required (all times provided in Eastern Time, not UTC)
 
 ### Data Integration Considerations
 
 Merging these datasets presented significant challenges:
 
-1. **Team Name Harmonization**: Different naming conventions required fuzzy string matching using `rapidfuzz` library (token sort ratio algorithm) to align team identifiers across datasets.
+1. **Team Name Harmonization**: Different naming conventions required fuzzy string matching using `rapidfuzz` library to align team identifiers across datasets.
 
 2. **Temporal Alignment**: Game times required conversion from UTC (CFBD) and Eastern Time (Kaggle) to a common timezone with bucketing to 5-minute intervals to account for small recording differences.
 
@@ -122,16 +120,7 @@ The final merged dataset contains approximately 12,000 games with complete featu
 
 ### Ethical Considerations
 
-Both datasets contain only aggregated statistics without personal information, eliminating privacy concerns. The primary ethical consideration is compliance with CFBD's redistribution prohibition. Our solution—hosting data on Box.com for course evaluation while providing complete acquisition scripts for independent reproduction—balances reproducibility with license compliance. Users outside this course must obtain data independently via the CFBD API.
-
-### Data Dictionary
-
-A comprehensive data dictionary describing all variables in the merged dataset is available in `data/README.md`, including:
-- Variable names and descriptions
-- Data types and units
-- Missingness patterns
-- Derivation methods for engineered features
-- Valid value ranges
+Both datasets contain only aggregated statistics without personal information, eliminating privacy concerns. The primary ethical consideration is compliance with CFBD's redistribution prohibition. Our solution—hosting data on Box.com. 
 
 ## Data Quality
 
@@ -139,15 +128,13 @@ Ensuring high data quality was critical to producing reliable home-field advanta
 
 ### Quality Assessment Methodology
 
-Our quality assessment followed a multi-stage process:
+Our quality assessment focused on:
 
-1. **Initial Profiling**: Examined each raw dataset independently for missing values, outliers, data type inconsistencies, and distributional properties.
+1. **Integration Validation**: After merging datasets, assessed match quality and logical consistency of joined records.
 
-2. **Integration Validation**: After merging datasets, assessed match quality, duplicate detection, and logical consistency of joined records.
+2. **Feature Engineering Checks**: Validated derived features for data leakage and excluded features with >50% missing data.
 
-3. **Feature Engineering Checks**: Validated derived features for data leakage, temporal consistency, and computational correctness.
-
-4. **Model Input Validation**: Final verification that training data contains no missing values, features are properly scaled, and target variables have valid ranges.
+3. **Model Input Validation**: Final verification that training data contains no missing values and features are properly scaled.
 
 ### Dataset-Specific Quality Findings
 
@@ -160,7 +147,6 @@ Our quality assessment followed a multi-stage process:
 - Venue information: ~95% complete
 
 **Accuracy**:
-- Spot-checked game scores against sports-reference.com: 100% accuracy in sample
 - Date/time stamps occasionally show timezone inconsistencies (UTC vs local time)
 
 **Consistency**:
@@ -170,12 +156,7 @@ Our quality assessment followed a multi-stage process:
 **Issues Identified**:
 - Neutral site games flagged inconsistently (some bowl games marked as home games)
 - ELO ratings occasionally missing for teams in transition years (conference realignment)
-- Overtime games not explicitly flagged
-
-**Remediation**:
-- Filtered to exclude neutral site games based on venue location matching
-- Imputed missing ELO ratings using season average for affected team
-- Created binary overtime indicator from score distributions
+- Overtime games not explicitly flagged, this impacts margin calculations
 
 #### Kaggle Box Scores (`cfb_box-scores_2002-2024.csv`)
 
@@ -185,23 +166,19 @@ Our quality assessment followed a multi-stage process:
 - Game times: ~95% complete
 
 **Accuracy**:
-- Dates validated against CFBD with 99.7% agreement
-- Scores match CFBD in 98.5% of cases (discrepancies investigated)
+- Game dates and scores appear consistent across sources
 
 **Consistency**:
 - Team naming highly inconsistent (e.g., "Miami" vs "Miami (FL)", "USC" ambiguity)
-- Time zones mixed (some Eastern, some local time)
+- Time zones mixed
 - Date formats inconsistent across years
 
 **Issues Identified**:
-- Duplicate records for same game (different formatting)
 - Includes FCS and lower division games not in CFBD
 - Some games have placeholder "TBD" or "0" for attendance
 
 **Remediation**:
-- Deduplication based on team-date-score combinations
-- Filtered to FBS-only games by cross-referencing with CFBD
-- Set missing attendance to median for venue-type category
+- Filtered to completed, regular season, non-neutral site games
 - Standardized all times to Eastern Time, rounded to 5-minute buckets
 
 ### Integration Quality Assessment
@@ -220,23 +197,14 @@ Merging CFBD and Kaggle datasets required sophisticated matching algorithms due 
 - Unmatched Kaggle games: 32,847 (primarily FCS/Division II/III games)
 
 **Quality Flags**:
-- Flagged 127 games with score discrepancies for manual review (resolved via sports-reference.com)
-- Flagged 54 games with suspicious attendance (>150% venue capacity) - verified as championship games with temporary seating
-- Identified 312 games marked as "home" but played at neutral sites - excluded from analysis
+- Neutral site games excluded from analysis by filtering neutralSite == False
 
 ### Feature Engineering Quality Checks
 
 Engineered features introduced new quality concerns, particularly around data leakage:
 
 **Temporal Consistency**:
-- Verified all season aggregates use only games before current game date
-- Confirmed no future information in moving averages or cumulative statistics
-- Validated train/test splits maintain temporal ordering (no test games before training games)
-
-**Computational Accuracy**:
-- Unit tests for feature engineering functions with known examples
-- Verified ELO updates follow standard chess formula
-- Confirmed win percentage calculations exclude current game
+- Train/test splits use random sampling with fixed seed for reproducibility
 
 **Data Leakage Prevention**:
 - Fitted StandardScaler exclusively on training data
@@ -244,33 +212,16 @@ Engineered features introduced new quality concerns, particularly around data le
 - Excluded concurrent-week rankings from features
 
 **Statistical Properties**:
-- Checked distributions for impossible values (e.g., negative attendance, scores >100)
-- Identified and investigated outliers (e.g., 222-0 final score confirmed as correct)
-- Verified feature correlations reasonable (detected and removed perfectly correlated duplicates)
+- Features with >50% missing data automatically excluded during feature engineering
 
 ### Missing Data Handling
 
 Missing data patterns varied by variable type:
 
-**ELO Ratings** (15% missing):
-- Pattern: Non-random, concentrated in lower-tier teams and early years
-- Strategy: Imputed with team-season mean when available, conference mean otherwise
-- Justification: ELO ratings highly stable within season; conference mean preserves competitive tier
-
-**AP Rankings** (40% missing):
-- Pattern: Structurally missing (only Top 25 teams ranked)
-- Strategy: Created binary "ranked" indicator; set rank=26 for unranked teams
-- Justification: Preserves ordinal information while avoiding arbitrary imputation
-
-**Attendance** (20% missing):
-- Pattern: More missing in early seasons and lower-profile games
-- Strategy: Imputed with venue-type median (P5 conference, G5, etc.)
-- Justification: Attendance varies more by venue category than team quality
-
-**Game Times** (5% missing):
-- Pattern: Random, mostly early seasons
-- Strategy: Imputed with modal time slot for day of week (Sat 3:30pm, etc.)
-- Justification: Minimizes bias in time-of-day features
+**Missing Value Strategy**:
+- Features with >50% missing data excluded from analysis
+- Remaining missing values imputed using median for numeric features
+- Categorical features with missing values filled with 'Unknown' category
 
 ### Final Dataset Quality Summary
 
@@ -284,7 +235,6 @@ After all cleaning and integration steps, our model-ready dataset contains:
 
 **Quality Metrics**:
 - Data completeness: 100% (after filtering)
-- Feature correlation: Maximum 0.95 (redundant features removed)
 - Target variable balance: 62.8% home wins (reasonable given home advantage exists)
 - Temporal coverage: 23 seasons with >400 games per season average
 
@@ -292,10 +242,9 @@ After all cleaning and integration steps, our model-ready dataset contains:
 
 To maintain quality throughout the workflow:
 
-1. **Automated Checks**: Script validates data schema, value ranges, and completeness at each stage
-2. **Logging**: Detailed logs track games filtered, imputations performed, and quality flags raised
-3. **Reproducibility**: Fixed random seed (42) ensures consistent train/test splits and CV folds
-4. **Documentation**: All quality decisions documented in code comments and this report
+1. **Print Statements**: Script outputs progress messages showing games filtered and features created
+2. **Reproducibility**: Fixed random seed (42) ensures consistent train/test splits and CV folds
+3. **Documentation**: All quality decisions documented in code comments and this report
 
 The resulting dataset provides a high-quality foundation for modeling home-field advantage with confidence in the reliability and validity of our findings.
 
@@ -389,13 +338,7 @@ This consistency across different modeling approaches (classification vs regress
 
 ### Contextual Insights
 
-While the primary focus was aggregate home-field advantage, the analysis revealed several contextual patterns:
 
-**Team Quality Interaction**: Home advantage appears slightly larger for lower-ranked teams (G5 conferences) than elite teams (P5), though this warrants further investigation.
-
-**Temporal Patterns**: No systematic trend in home advantage magnitude over the 2002-2024 period, suggesting it's a stable phenomenon.
-
-**Venue Effects**: Games at larger venues (>80k capacity) show marginally higher home advantage, possibly due to crowd noise, though attendance itself was not a strong predictor.
 
 ### Comparison to Prior Research
 
@@ -526,14 +469,7 @@ This project is designed for complete reproducibility. Follow these steps to ind
 **Software Requirements**:
 - Python 3.8 or higher
 - Git
-- 10-15 GB disk space for data
-- 2-4 GB RAM (8 GB recommended)
 
-**Estimated Time**: 
-- Setup: 15-20 minutes
-- Data download: 5-10 minutes
-- Full workflow execution: 10-15 minutes
-- **Total**: ~30-45 minutes
 
 ### Step 1: Clone Repository
 
@@ -548,7 +484,7 @@ ls -l
 # Should show: data/ models/ notebooks/ reports/ src/ requirements.txt README.md LICENSE
 ```
 
-### Step 2: Set Up Python Environment
+### Step 2: If Needed, Set Up Python Environment
 
 Create and activate a virtual environment (recommended):
 
@@ -597,7 +533,7 @@ python -c "import pandas, sklearn, rapidfuzz; print('All packages installed succ
 
 1. Register for free API key at https://collegefootballdata.com/
 2. Open and run `notebooks/API_CFBD.ipynb` to fetch CFBD data
-3. Download Kaggle dataset manually from https://www.kaggle.com/datasets/cviaxmiwnptr/college-football-team-stats-2002-to-january-2024/data
+3. Use `kaggle_data.ipynb`, or download Kaggle dataset manually from https://www.kaggle.com/datasets/cviaxmiwnptr/college-football-team-stats-2002-to-january-2024/data
 4. Place both CSVs in `data/raw/` directory
 
 ### Step 4: Run Complete Workflow
@@ -607,8 +543,6 @@ Execute the automated workflow script:
 ```bash
 python src/run_all.py
 ```
-
-**Note**: The script automatically detects the project root directory, so it works whether you run from the repository root or from the `src/` subdirectory.
 
 This single command executes all analysis steps:
 1. Load raw CFBD and Kaggle data
@@ -632,14 +566,11 @@ Training ridge regression model...
 Training LASSO regression model...
 Quantifying home-field advantage...
 Generating visualizations...
-All outputs saved successfully!
+All outputs saved successfully
 ```
-
-**Runtime**: Approximately 10-15 minutes on a modern laptop (depends on CPU)
-
 ### Step 5: Verify Outputs
 
-Check that all expected outputs were created:
+Check that all expected outputs were created, can match to outputs already in the repository when cloned from GitHub.
 
 ```bash
 # Trained models
@@ -681,50 +612,12 @@ Home team win probability: 69.0%
 Home-field advantage boost: 19.0 percentage points
 ```
 
-Open visualizations to inspect diagnostic plots:
-```bash
-open reports/logistic_roc_curve.png         # ROC curve (Mac)
-open reports/lasso_feature_importance.png   # Feature importance
-open reports/ridge_residual_plot.png        # Residual diagnostics
-# On Windows/Linux: use `xdg-open` or your preferred image viewer
-```
+Open visualizations to inspect diagnostic plots.
 
-### Step 7 (Optional): Explore Notebooks
+### Optional Step: Explore Notebooks
 
-For deeper understanding of the workflow, explore the Jupyter notebooks documenting development:
-
-```bash
-jupyter notebook
-```
-
-Navigate to `notebooks/` and open:
-- `API_CFBD.ipynb`: Data acquisition from CFBD API
-- `kaggle_data.ipynb`: Kaggle data loading and initial profiling
-- `Data_merge.ipynb`: Fuzzy matching and dataset integration
-- `model_home_field_advantage.ipynb`: Model training and evaluation
-
+For deeper understanding of the workflow, explore the Jupyter notebooks documenting code development.
 **Note**: Notebooks are for documentation; the production workflow runs via `src/run_all.py`.
-
-### Troubleshooting
-
-**Issue**: `ModuleNotFoundError` when running script
-- **Solution**: Ensure virtual environment is activated and `pip install -r requirements.txt` completed successfully
-
-**Issue**: `FileNotFoundError: data/raw/cfbd_merged.csv`
-- **Solution**: Verify Box.com data downloaded correctly and placed in `data/raw/` directory
-
-**Issue**: Script runs but produces different results
-- **Solution**: Check Python version (should be 3.8+) and package versions match `requirements.txt`. Our workflow uses `random_state=42` for reproducibility.
-
-**Issue**: Out of memory error during execution
-- **Solution**: Close other applications to free RAM. Script requires ~2-4 GB memory.
-
-**Issue**: Script exits with error in feature engineering
-- **Solution**: Verify input data files are not corrupted by checking file sizes:
-  ```bash
-  wc -l data/raw/cfbd_merged.csv        # Should be ~15000 lines
-  wc -l data/raw/cfb_box-scores_2002-2024.csv  # Should be ~45000 lines
-  ```
 
 For additional help, consult:
 - `src/README_WORKFLOW.md`: Detailed workflow documentation
@@ -782,16 +675,6 @@ Pedregosa, F., Varoquaux, G., Gramfort, A., Michel, V., Thirion, B., Grisel, O.,
 rapidfuzz Contributors. (2023). *rapidfuzz: Rapid fuzzy string matching in Python and C++*. Retrieved from https://github.com/maxbachmann/RapidFuzz
 
 Hunter, J. D. (2007). Matplotlib: A 2D graphics environment. *Computing in Science & Engineering*, 9(3), 90-95.
-
-### Related Literature on Home-Field Advantage
-
-Moskowitz, T. J., & Wertheim, L. J. (2011). *Scorecasting: The hidden influences behind how sports are played and games are won*. Crown Archetype.
-
-Stefani, R., & Clarke, S. R. (1992). Predictions and home advantage for Australian rules football. *Journal of Applied Statistics*, 19(2), 251-261.
-
-Pollard, R., & Pollard, G. (2005). Long-term trends in home advantage in professional team sports in North America and England (1876–2003). *Journal of Sports Sciences*, 23(4), 337-350.
-
-Jamieson, J. P. (2010). The home field advantage in athletics: A meta-analysis. *Journal of Applied Social Psychology*, 40(7), 1819-1848.
 
 ### Project Metadata and Citation
 
