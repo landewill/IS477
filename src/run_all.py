@@ -747,6 +747,12 @@ def main():
     print("College Football Home-Field Advantage Analysis")
     print("Complete Workflow Pipeline\n")
     
+    # Ensure we're running from project root
+    script_dir = Path(__file__).parent
+    project_root = script_dir.parent
+    os.chdir(project_root)
+    print(f"Working directory: {os.getcwd()}\n")
+    
     # Step 1: Load raw data
     print("Step 1: Loading raw data...")
     cfbd_path = "data/raw/cfbd_merged.csv"
