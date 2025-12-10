@@ -4,7 +4,7 @@ This directory contains the production-ready Python scripts that implement the c
 
 ## Status
 
-✅ **COMPLETED** - All core functionality implemented and tested.
+**COMPLETED** - All core functionality implemented and tested.
 
 ## Purpose
 
@@ -15,7 +15,7 @@ The `src/` directory houses modular, reusable Python code that:
 4. Trains and evaluates models
 5. Generates reports and visualizations
 
-**Note:** This code is orchestrated by the main workflow script (`run_all.py` or `Makefile`) at the project root.
+**Note:** This code is orchestrated by the main workflow script (`run_all.py`) at the project root.
 
 ## Directory Structure
 
@@ -92,8 +92,6 @@ python src/modeling/train_models.py
 ```bash
 # From project root
 python run_all.py
-# OR
-make all
 ```
 
 ## Dependencies
@@ -123,7 +121,7 @@ pytest tests/
 Code follows PEP 8 style guidelines:
 ```bash
 flake8 src/
-black src/  # Auto-formatter
+black src/  
 ```
 
 ### Documentation
