@@ -30,9 +30,10 @@ from sklearn.linear_model import LogisticRegression, Ridge, Lasso
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import (
     accuracy_score, roc_auc_score, precision_score, recall_score, f1_score,
-    mean_absolute_error, mean_squared_error, r2_score
+    mean_absolute_error, mean_squared_error, r2_score, roc_curve, auc
 )
 import joblib
+import matplotlib.pyplot as plt
 
 RANDOM_STATE = 42
 np.random.seed(RANDOM_STATE)
@@ -534,7 +535,7 @@ def train_logistic_model(X, y):
     print(f"Recall:    {metrics['recall']:.4f}")
     print(f"F1 Score:  {metrics['f1']:.4f}")
     
-    return best_logit, metrics
+    return best_logit, metrics, X_test, y_test
 
 
 def train_ridge_model(X, y):
@@ -588,7 +589,7 @@ def train_ridge_model(X, y):
     print(f"RMSE: {rmse:.4f} points")
     print(f"R^2 Score: {r2:.4f}")
     
-    return best_reg, metrics
+    return best_reg, metrics, X_test, y_test
 
 
 def train_lasso_model(X, y):
@@ -643,13 +644,13 @@ def train_lasso_model(X, y):
         'features_total': len(X.columns)
     }
     
-    print("\nLASSO Model - Test Set Performance")
+    print("\nLASSO Regression Model - Test Set Performance")
     print(f"MAE:  {mae:.4f} points")
     print(f"RMSE: {rmse:.4f} points")
     print(f"R^2 Score: {r2:.4f}")
     print(f"\n{n_nonzero}/{len(lasso_coefs)} features selected")
     
-    return best_lasso, metrics
+    return best_lasso, metrics, X_test, y_test
 
 
 def quantify_home_advantage_logit(model, X, y):
@@ -779,9 +780,9 @@ def main():
     # Step 5: Train models
     print("\nStep 5: Training models...")
     
-    logit_model, logit_metrics = train_logistic_model(X, y_logit)
-    ridge_model, ridge_metrics = train_ridge_model(X, y_reg)
-    lasso_model, lasso_metrics = train_lasso_model(X, y_reg)
+    logit_model, logit_metrics, X_test_logit, y_test_logit = train_logistic_model(X, y_logit)
+    ridge_model, ridge_metrics, X_test_reg, y_test_reg = train_ridge_model(X, y_reg)
+    lasso_model, lasso_metrics, X_test_lasso, y_test_lasso = train_lasso_model(X, y_reg)
     
     # Step 6: Quantify home-field advantage
     print("\nStep 6: Quantifying home-field advantage...")
@@ -882,16 +883,85 @@ def main():
     
     print("Saved metrics and summaries")
     
-    print("\nWorkflow complete!")
-    print("\nOutputs:")
-    print("  - data/model/merged_games_model_ready.csv")
-    print("  - models/home_field_logistic.pkl")
-    print("  - models/home_field_ridge.pkl")
-    print("  - models/home_field_lasso.pkl")
-    print("  - reports/model_home_field_metrics.json")
-    print("  - reports/model_home_field_logit_summary.txt")
-    print("  - reports/model_home_field_ridge_summary.txt")
-    print("  - reports/model_home_field_lasso_summary.txt")
+    # Generate visualizations
+    print("\nGenerating visualizations")
+    
+    # 1. LASSO Feature Importance
+    feature_names = X.columns
+    coefficients = lasso_model.named_steps['regressor'].coef_
+    
+    feature_importance = pd.DataFrame({
+        'feature': feature_names,
+        'coefficient': coefficients
+    })
+    feature_importance = feature_importance[feature_importance['coefficient'] != 0]
+    feature_importance = feature_importance.reindex(
+        feature_importance['coefficient'].abs().sort_values(ascending=True).index
+    )
+    
+    plt.figure(figsize=(10, 8))
+    plt.barh(range(len(feature_importance)), feature_importance['coefficient'])
+    plt.yticks(range(len(feature_importance)), feature_importance['feature'], fontsize=6)
+    plt.xlabel('LASSO Coefficient')
+    plt.ylabel('Feature')
+    plt.title('LASSO Feature Importance')
+    plt.axvline(x=0, color='black', linestyle='--', linewidth=0.8)
+    plt.tight_layout()
+    plt.savefig('reports/lasso_feature_importance.png', dpi=300, bbox_inches='tight')
+    plt.close()
+    
+    # 2. ROC Curve for Logistic Regression
+    y_pred_proba = logit_model.predict_proba(X_test_logit)[:, 1]
+    fpr, tpr, thresholds = roc_curve(y_test_logit, y_pred_proba)
+    roc_auc_val = auc(fpr, tpr)
+    
+    plt.figure(figsize=(8, 6))
+    plt.plot(fpr, tpr, color='blue', lw=2, label=f'ROC curve (AUC = {roc_auc_val:.3f})')
+    plt.plot([0, 1], [0, 1], color='gray', lw=1, linestyle='--', label='Random classifier')
+    plt.xlim([0.0, 1.0])
+    plt.ylim([0.0, 1.05])
+    plt.xlabel('False Positive Rate')
+    plt.ylabel('True Positive Rate')
+    plt.title('Logistic Regression ROC Curve')
+    plt.legend(loc='lower right')
+    plt.grid(alpha=0.3)
+    plt.tight_layout()
+    plt.savefig('reports/logistic_roc_curve.png', dpi=300, bbox_inches='tight')
+    plt.close()
+    
+    # 3. Residual Plot for Ridge Regression
+    y_pred_ridge = ridge_model.predict(X_test_reg)
+    residuals_ridge = y_test_reg - y_pred_ridge
+    
+    plt.figure(figsize=(10, 6))
+    plt.scatter(y_pred_ridge, residuals_ridge, alpha=0.5, s=10)
+    plt.axhline(y=0, color='red', linestyle='--', linewidth=2)
+    plt.xlabel('Predicted Score Margin')
+    plt.ylabel('Residuals (Actual - Predicted)')
+    plt.title('Ridge Regression Residual Plot')
+    plt.grid(alpha=0.3)
+    plt.tight_layout()
+    plt.savefig('reports/ridge_residual_plot.png', dpi=300, bbox_inches='tight')
+    plt.close()
+    
+    # 4. Residual Plot for LASSO Regression
+    y_pred_lasso_plot = lasso_model.predict(X_test_lasso)
+    residuals_lasso = y_test_lasso - y_pred_lasso_plot
+    
+    plt.figure(figsize=(10, 6))
+    plt.scatter(y_pred_lasso_plot, residuals_lasso, alpha=0.5, s=10, color='green')
+    plt.axhline(y=0, color='red', linestyle='--', linewidth=2)
+    plt.xlabel('Predicted Score Margin')
+    plt.ylabel('Residuals (Actual - Predicted)')
+    plt.title('LASSO Regression Residual Plot')
+    plt.grid(alpha=0.3)
+    plt.tight_layout()
+    plt.savefig('reports/lasso_residual_plot.png', dpi=300, bbox_inches='tight')
+    plt.close()
+    
+    print("Saved visualizations")
+    
+    print("\nWorkflow complete.")
 
 
 if __name__ == '__main__':
