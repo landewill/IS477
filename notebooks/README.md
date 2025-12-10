@@ -2,7 +2,7 @@
 
 This directory contains Jupyter notebooks used for **exploratory data analysis and model development**.
 
-⚠️ **Important:** These notebooks are development artifacts and are **not part of the final reproducible workflow**. They document the exploratory process and model experimentation that informed the final production pipeline.
+**Important:** These notebooks are development artifacts and are **not part of the final reproducible workflow**. They document the exploratory process and model experimentation that informed the final production pipeline.
 
 ## Purpose and Scope
 
@@ -16,8 +16,6 @@ These notebooks were used to:
 **The final, production-ready workflow** has been consolidated into a single reproducible script that can be executed via:
 ```bash
 python run_all.py
-# OR
-make all
 ```
 
 ## Notebooks
@@ -37,7 +35,7 @@ make all
 - Feature importance analysis
 - Ridge vs. LASSO comparison
 
-**Status:** ✅ Complete - Development phase finished
+**Status:** Complete - Development phase finished
 
 ## Reproducibility Notes
 
@@ -67,14 +65,14 @@ jupyter notebook
 
 ### Reproducibility Considerations
 
-✅ **What Makes These Notebooks Reproducible:**
+**What Makes These Notebooks Reproducible:**
 - Fixed random seeds (`RANDOM_STATE = 42`)
 - Explicit train/test splits with consistent parameters
 - Version-controlled hyperparameter grids
 - Documented data preprocessing steps
 - Clear dependency specifications
 
-⚠️ **Limitations:**
+**Limitations:**
 - Interactive exploration may have been done in non-sequential cell execution
 - Some cells may have been re-run during development
 - Notebook state depends on execution order
