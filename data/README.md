@@ -4,20 +4,19 @@ This directory contains all data used in the home-field advantage analysis proje
 
 ## Data Availability and Licensing
 
-**Critical Information:** Due to data licensing restrictions, **not all datasets are included in this public repository**.
+**Critical Information:** Due to data licensing restrictions, **we store all data, including all of our raw data, in Box**.
 
-### What's Included
+### What's Included in Box.com Download
 
-- **Kaggle datasets** - Fully included and redistributable (open license)
-- **Sample data** - Small synthetic datasets for testing (10 games)
-- **Data processing scripts** - Complete pipeline to fetch and process all data
-- **Documentation** - Full provenance and methodology
+**For course graders:** The Box.com shared folder contains this entire `data/` directory with **all datasets included**:
+- CFBD data files 
+- Merged datasets (`merged_games.csv`)
+- Kaggle data
+- Model data
+- This README file
 
-### What's NOT Included
+**Simply download the Box folder and place it in your local repository to have all data ready.**
 
-- **CFBD API data** - Cannot be redistributed per their Terms of Service
-- **Merged datasets** - Contain CFBD data, therefore excluded
-- **Raw Sports Reference data** - May have scraping/ToS restrictions
 
 ### Why This Matters
 
@@ -28,7 +27,7 @@ This directory contains all data used in the home-field advantage analysis proje
 
 **Impact on this repository:**
 - CFBD data files are listed in `.gitignore` and will not appear in version control
-- The repository focuses on **reproducibility through code** rather than data redistribution
+- The repository focuses on reproducibility through code rather than data redistribution
 - Anyone can reproduce the full dataset by following the instructions below
 
 **This approach demonstrates:**
@@ -39,106 +38,71 @@ This directory contains all data used in the home-field advantage analysis proje
 
 ### For Course Graders/Instructors
 
-Since this is a course project, I can provide the complete dataset directly for academic evaluation purposes. **Three options:**
+**Quick Start:**
+1. Download the complete `data/` folder from Box.com (link provided via course submission)
+2. Place it in your cloned repository to replace the empty `data/` directory
+3. All datasets are now ready - proceed to run `python src/run_all.py` or explore the data directly
 
-1. **Pre-processed Dataset (Fastest - Recommended):**
-   - Contact: [emilt2@illinois.edu] OR [willl2@illinois.edu]
-   - I will provide Google Drive/OneDrive link to `merged_games.csv`
-   - Download and place in `data/cleaned/` directory
-
-2. **Run Reproducibility Pipeline (Tests Full Workflow):**
-   - Follow "Reproducing the Full Dataset" instructions below
-   - Requires free CFBD API registration
-
-3. **Use Sample Data (Quick Testing):**
-   - Sample data included in `data/samples/`
-   - Sufficient for verifying code functionality
+**Note:** The Box download includes all CFBD data, merged datasets, and Kaggle data. No additional data fetching required.
 
 ## Directory Structure
 
 ```
 data/
 ├── raw/                    # Original, unmodified source data
-│   ├── kaggle/            # INCLUDED: Kaggle datasets (redistributable)
-│   ├── cfbd/              # LOCAL ONLY: CFBD API data (not redistributable)
-│   ├── sportsref/         # LOCAL ONLY: Sports Reference data
-│   └── .gitkeep           # Preserves empty directory structure
+│   ├── cfb_box-scores_2002-2024.csv  # Kaggle datasets (redistributable)
+│   └── cfbd_merged.csv   # CFBD API data (not redistributable)
 │
 ├── cleaned/                # Processed and merged datasets
-│   ├── kaggle_*.csv       # INCLUDED: Cleaned Kaggle data
-│   ├── cfbd_*.csv         # LOCAL ONLY: Cleaned CFBD data
-│   ├── merged_games.csv   # LOCAL ONLY: Combined dataset (contains CFBD)
-│   └── .gitkeep           # Preserves directory structure
+│   └── merged_games.csv   # Combined dataset 
 │
 ├── model/                  # Model-ready feature matrices
-│   ├── merged_games_model_ready.csv  # MAY BE INCLUDED (derived features)
-│   └── .gitkeep           # Preserves directory structure
-│
-├── samples/                # Small test datasets
-│   ├── sample_merged_games.csv  # INCLUDED: 10-row synthetic data
-│   └── README.md          # Documentation for sample data
+│   └── merged_games_model_ready.csv  # MAY BE INCLUDED (derived features)
 │
 └── README.md              # This file
 ```
 
-**Legend:**
-- **INCLUDED** = Committed to GitHub repository (public)
-- **LOCAL ONLY** = Generated locally, excluded from version control (`.gitignore`)
+## Reproducing the Analysis
 
-## Reproducing the Full Dataset
+### Use Pre-Downloaded Data from Box
 
-### Prerequisites
-
-1. **Python environment:**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-2. **CFBD API Key (Free):**
-   - Register at https://collegefootballdata.com/
-   - Create account → Generate API key
-
-### Steps to Reproduce
-
-1. **Clone this repository** (if you haven't already):
+1. **Clone this repository:**
    ```bash
    git clone https://github.com/landewill/IS477.git
    cd IS477
    ```
 
-2. **Set up environment variables:**
+2. **Download complete data directory from Box.com:**
+   - Access the Box.com shared folder (link provided via course submission)
+   - Download the entire `data/` folder
+   - Place into repository/replace the empty `data/` directory in your local repository
+   - Verify: `ls data/raw/` should show `cfbd_merged.csv` and `cfb_box-scores_2002-2024.csv`
+
+3. **Install Python dependencies:**
    ```bash
-   cp .env.example .env
-   # Edit .env and add your CFBD API key:
-   # CFBD_API_KEY='your_key_here'
+   pip install -r requirements.txt
    ```
 
-3. **Run the complete data pipeline:**
+4. **Run the complete analysis pipeline:**
    ```bash
-   python run_all.py
-   # OR
-   make all
+   python src/run_all.py
    ```
 
-4. **Verify output:**
+5. **Verify output:**
    ```bash
-   ls data/raw/cfbd/          # Should contain CFBD API data
-   ls data/cleaned/           # Should contain merged_games.csv
-   ls data/model/             # Should contain model-ready features
+   ls models/                 # Should contain trained models
+   ls reports/                # Should contain home advantage analysis
    ```
 
 **Expected Output:**
-- `data/raw/cfbd/`: ~15,000 games from 2001-2024
-- `data/cleaned/merged_games.csv`: ~12,000 games after filtering
-- `data/model/merged_games_model_ready.csv`: ~10,000 games with engineered features
-
-**Estimated Runtime:** 10-15 minutes (API rate limits may vary)
+- `models/*.joblib`: Trained Logistic, Ridge, and LASSO models
+- `reports/*.csv`: Home field advantage quantification results
 
 ## Data Management and Curation
 
 ### Data Sources
 
-This project combines data from three primary sources with different licensing terms:
+This project combines data from two primary sources with different licensing terms:
 
 #### 1. **Kaggle - College Football Dataset** Redistributable
 
@@ -153,34 +117,22 @@ This project combines data from three primary sources with different licensing t
 Cviaxmiwnptr. (2025, January 24). College Football Game Stats: 2002 to January 2025. Kaggle. https://www.kaggle.com/datasets/cviaxmiwnptr/college-football-team-stats-2002-to-january-2024/data 
 ```
 
-#### 2. **College Football Data API (CFBD)** NOT Redistributable
+#### 2. **College Football Data API (CFBD)** Not Redistributable
 
 - **Source:** https://collegefootballdata.com/
-- **Retrieval Method:** REST API (requires free registration)
+- **Retrieval Method:** Downloaded from Box.com (for academic evaluation)
+- **Original Source:** REST API (requires free registration)
 - **Contains:** Game results, team statistics, venue information, ELO ratings, rankings
 - **Coverage:** NCAA FBS games, 2001-2024
 - **License/Terms:** https://collegefootballdata.com/exporting
 - **Key Restriction:** "Users may not redistribute CFBD data"
-- **Redistribution Status:** **PROHIBITED** - Users must fetch data themselves
-- **Why This Restriction Exists:**
-  - CFBD aggregates data from multiple sources
-  - Maintains data quality and freshness through API
-  - Prevents unauthorized commercial use
-  - Protects their business model (free tier + premium features)
+- **Redistribution Status:** Prohibited
+- **Academic Access:** Available via Box.com for course evaluation purposes only
 - **Citation:**
   ```
   College Football Data. (2024). College Football Data API. 
   Retrieved from https://collegefootballdata.com/
   ```
-
-#### 3. **Sports Reference (Supplementary)** Status Unclear
-
-- **Source:** https://www.sports-reference.com/cfb/
-- **Retrieval Method:** Web scraping (check robots.txt)
-- **Contains:** Game schedules, scores, attendance data
-- **Coverage:** NCAA FBS games (multiple seasons)
-- **License/Terms:** [Check terms of use before scraping]
-- **Redistribution Status:** **UNCERTAIN** - Excluded out of caution
 
 ### Data Processing Pipeline
 
@@ -189,7 +141,6 @@ The data flows through the following stages:
 1. **Raw Data** (`raw/`)
    - Unmodified data as retrieved from sources
    - Preserved for reproducibility and auditing
-   - Never edited manually
 
 2. **Cleaned Data** (`cleaned/`)
    - Merged datasets from multiple sources
@@ -200,7 +151,6 @@ The data flows through the following stages:
 
 3. **Model-Ready Data** (`model/`)
    - Feature engineering applied
-   - Train/test splits preserved
    - Ready for machine learning workflows
    - Key file: `merged_games_model_ready.csv`
 
@@ -220,14 +170,12 @@ The data flows through the following stages:
 
 ### Reproducibility Notes
 
-All data transformations are scripted and version-controlled. The cleaning and merging process is documented in the project's main workflow script (to be run via `make` or `run_all.py`).
+All data transformations are scripted and version-controlled. The cleaning and merging process is documented in the project's main workflow script.
 
 **To reproduce the cleaned datasets:**
 ```bash
-# From project root (when workflow is complete)
-python run_all.py --stage data-cleaning
-# OR
-make data-clean
+# From project root
+python src/run_all.py
 ```
 
 ## Data Dictionary
@@ -263,10 +211,9 @@ Cviaxmiwnptr. (2025, January 24). College Football Game Stats: 2002 to January 2
 Lande, W., & Tomic, E. (2025). College Football Home-Field Advantage Analysis Dataset. GitHub. https://github.com/landewill/IS477
 
 ## License and Usage
+- MIT License (see LICENSE file in repository root)
 
 **Source Data:** See individual source licenses above.
-
-**Code:** MIT License (see LICENSE file in repository root)
 
 ## Contact
 

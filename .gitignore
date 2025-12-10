@@ -30,15 +30,6 @@ temp/
 .vscode/
 .idea/
 
-# Environment variables and secrets
-.env
-*.env
-!.env.example
-*.key
-*.pem
-credentials.json
-secrets.json
-
 # ============================================================================
 # DATA FILES - Licensing Restrictions
 # ============================================================================
@@ -53,12 +44,6 @@ secrets.json
 data/raw/cfbd/
 data/raw/*cfbd*.csv
 data/cleaned/cfbd_*.csv
-data/cleaned/*cfbd*.csv
-data/cleaned/merged_games.csv
-
-# Sports Reference data - EXCLUDED (check ToS)
-data/raw/sportsref/
-data/raw/*sportsref*.csv
 
 # Kaggle data - INCLUDED (these are negated to ensure they're tracked)
 !data/raw/kaggle/
@@ -74,7 +59,3 @@ data/raw/*sportsref*.csv
 !data/raw/.gitkeep
 !data/cleaned/.gitkeep
 !data/model/.gitkeep
-
-# Sample/test data - INCLUDED (for testing workflows)
-!data/samples/
-!data/samples/*.csv

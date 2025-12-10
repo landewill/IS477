@@ -23,18 +23,13 @@ import json
 import os
 import sys
 from pathlib import Path
-from dateutil import parser
-import pytz
 from rapidfuzz import fuzz
-
-# Scikit-learn imports
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression, Ridge, Lasso
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import (
     accuracy_score, roc_auc_score, precision_score, recall_score, f1_score,
-    confusion_matrix, classification_report,
     mean_absolute_error, mean_squared_error, r2_score
 )
 import joblib
