@@ -336,30 +336,6 @@ All three models converge on similar conclusions:
 
 This consistency across different modeling approaches (classification vs regression, L1 vs L2 regularization) strengthens confidence in the findings.
 
-### Contextual Insights
-
-
-
-### Comparison to Prior Research
-
-Our estimates align with existing sports analytics literature:
-- Moskowitz & Wertheim (2011) estimated ~60% home win rate in college football
-- Stefani & Clarke (1992) found 5-7 point home advantage
-- Our findings of 69% win probability and 14-17 point advantage suggest college football has stronger home effects than professional sports (NFL ~57% home wins)
-
-### Limitations
-
-Several limitations qualify these findings:
-
-1. **Causality**: Our models identify correlation, not causation. Home advantage likely reflects multiple mechanisms (crowd support, travel fatigue, referee bias, familiarity with venue) that cannot be disentangled with this data.
-
-2. **Missing Variables**: Factors like weather conditions, injury status, and coaching changes were unavailable but could influence both game outcomes and the home advantage estimate.
-
-3. **Sample Selection**: Excluding neutral site games (bowl games, championships) may affect generalizability if home advantage differs in high-stakes contexts.
-
-4. **Model Assumptions**: Linear models assume additive effects, but interactions between home venue and team quality may be more complex.
-
-Despite these limitations, the robustness of findings across models and consistency with prior research provide strong evidence for substantial home-field advantage in college football.
 
 ## Future Work
 
@@ -369,20 +345,17 @@ This project establishes a solid foundation for quantifying home-field advantage
 
 Our analysis aggregated data across 23 seasons (2002-2024), but home-field advantage may evolve over time. Future work could:
 - Examine year-over-year trends to identify whether home advantage is increasing, decreasing, or stable
-- Investigate whether rule changes (targeting penalties, transfer portal, NIL policies) affect home advantage
-- Build time-varying coefficient models to capture shifting effects
-
-Preliminary exploration showed no obvious trend, but more sophisticated time series methods could reveal subtle patterns.
+- Investigate whether rule changes (such as NIL policies) affect home advantage
 
 ### Mechanism Decomposition
 
-Our models estimate the aggregate effect of playing at home without isolating specific causal mechanisms. Future research could disentangle:
+Our models estimate the aggregate effect of playing at home without isolating specific causal mechanisms. Future research could:
 - **Crowd effects**: Compare home advantage in high- vs low-attendance games, or before/after COVID-19 crowd restrictions
 - **Travel fatigue**: Analyze whether advantage increases with travel distance for away teams
 - **Referee bias**: Examine penalty differentials at home vs away, controlling for team discipline
 - **Familiarity**: Test whether teams with unique venues (high altitude, dome vs outdoor) show larger advantages
 
-Such analyses would require additional data (penalty logs, travel distances, venue characteristics) but could provide actionable insights for coaches and competitive balance policymakers.
+Such analyses would require additional data (penalty logs, travel distances, venue characteristics).
 
 ### Conference and Team Heterogeneity
 
@@ -391,7 +364,6 @@ Aggregating across all FBS teams may mask important variations:
 - **Team-specific effects**: Some teams (e.g., Oregon at Autzen Stadium, Texas A&M at Kyle Field) are anecdotally thought to have exceptional home advantages
 - **Venue characteristics**: Compare natural grass vs turf, dome vs outdoor, high altitude vs sea level
 
-Hierarchical models or fixed effects could quantify these heterogeneities while maintaining statistical power.
 
 ### Predictive Applications
 
@@ -406,7 +378,6 @@ Several modeling enhancements could improve accuracy or interpretability:
 
 1. **Non-linear models**: Test gradient boosting, random forests, or neural networks to capture interaction effects between home venue and team quality
 2. **Causal inference**: Apply propensity score matching or instrumental variables to move beyond correlational findings
-3. **Bayesian approaches**: Estimate uncertainty in home advantage via posterior distributions rather than point estimates
 4. **Ensemble methods**: Combine logistic and regression models via stacking for potentially better predictions
 
 We deliberately chose interpretable linear models for this project, but more complex methods could reveal non-linearities.
@@ -430,11 +401,11 @@ While this project demonstrates strong reproducibility practices, future iterati
 
 ### Lessons Learned
 
-Several key insights emerged during this project:
+Several key lessons were learned during this project:
 
 1. **Data integration is hard**: Merging heterogeneous sources consumed more time than anticipated. Fuzzy matching and careful validation were essential but labor-intensive.
 
-2. **Documentation pays dividends**: Comprehensive README files and inline comments made collaboration smooth and facilitated reproducibility testing.
+2. **Documentation pays**: Comprehensive README files and inline comments made collaboration smooth and facilitated reproducibility testing.
 
 3. **Version control is essential**: Git allowed safe experimentation with branching while maintaining stable main branch for production workflow.
 
@@ -442,9 +413,9 @@ Several key insights emerged during this project:
 
 5. **Licensing matters**: Navigating CFBD's redistribution prohibition required creativity (Box.com hosting) while respecting terms of service.
 
-6. **Feature engineering > model complexity**: Careful feature construction (preventing leakage, encoding domain knowledge) improved performance more than tuning hyperparameters.
+6. **Feature engineering > model complexity**: Careful feature construction  improved performance more than tuning hyperparameters.
 
-7. **Reproducibility requires discipline**: Fixing random seeds, documenting software versions, and providing step-by-step instructions are tedious but critical.
+7. **Reproducibility requires attention to detail**: Fixing random seeds, documenting software versions, and providing step-by-step instructions are tedious but critical.
 
 ### Broader Impacts
 
