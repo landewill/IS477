@@ -61,7 +61,3 @@ references:
     title: "College Football Data API"
     url: "https://collegefootballdata.com/"
     notes: "Primary data source for game statistics, ELO ratings, and venue information"
-  - type: data
-    title: "Sports Reference - College Football"
-    url: "https://www.sports-reference.com/cfb/"
-    notes: "Secondary data source for game schedules and attendance"
